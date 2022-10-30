@@ -14,6 +14,6 @@ import java.util.Map;
 public class ManejadorEventos {
     
     public static Map<String, IEvento> eventos = Map.ofEntries(
-            Map.entry(Eventos.registrarPublicacion, new RegistrarUsuario())
+            Map.entry(Eventos.registrarUsuario, new RegistrarUsuario())
     );
 }

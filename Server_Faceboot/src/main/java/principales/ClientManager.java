@@ -58,6 +58,7 @@ public class ClientManager implements Runnable{
                     cliente.out.write(mensaje);
                     cliente.out.newLine();
                     cliente.out.flush();
+                    System.out.println("envia mensaje");
                 }
             } catch(IOException io){
                 cerrarTodo(clientSocket, in, out);

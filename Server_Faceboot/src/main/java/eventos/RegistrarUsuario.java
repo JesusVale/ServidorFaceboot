@@ -23,10 +23,15 @@ public class RegistrarUsuario implements IEvento {
             // Evento seguimiento-referencia a vista
             cliente.setSeguimiento(); 
             
+            System.out.println("si entro al if");
+            
             String[] mensajes = {mensaje[0], cliente.getSeguimiento()+"", mensaje[1]};
+            System.out.println(convertidorJson.convertirObjetoString(mensajes));
             cliente.enviarMensaje(ConstantesCodigosClientes.controladorUsuario, convertidorJson.convertirObjetoString(mensajes)); //Le envia al controlador el usuario para que lo agregue al modelo
         } else{ //Si lo envia el controlador
             //Envia evento seguimiento Resultado
+            
+            System.out.println(" si entro al else");
             double seguimiento = Double.parseDouble(mensaje[1]);
             String[] mensajes = {Eventos.registrarUsuario, mensaje[2]};
             cliente.enviarMensaje(seguimiento, convertidorJson.convertirObjetoString(mensajes));
