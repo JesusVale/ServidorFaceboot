@@ -13,7 +13,12 @@ import java.util.Map;
  */
 public class ManejadorEventos {
     
-    public static Map<String, IEvento> eventos = Map.ofEntries(
+    private static Map<String, IEvento> eventos = Map.ofEntries(
             Map.entry(Eventos.registrarUsuario, new RegistrarUsuario())
     );
+    
+    public static IEvento get(String evento){
+        return eventos.get(evento);
+    }
+    
 }

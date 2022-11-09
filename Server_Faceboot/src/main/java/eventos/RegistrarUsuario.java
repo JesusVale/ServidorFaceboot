@@ -5,8 +5,11 @@
  */
 package eventos;
 
+import controladores.ControladorUsuario;
 import conversors.IJsonToObject;
 import conversors.JsonToObject;
+import entidades.Usuario;
+import peticiones.Peticion;
 import principales.ClientManager;
 
 /**
@@ -15,27 +18,24 @@ import principales.ClientManager;
  */
 public class RegistrarUsuario implements IEvento {
     
-    IJsonToObject convertidorJson = new JsonToObject();
+    private ControladorUsuario controladorUsuario;
+    private IJsonToObject conversor;
+
+    public RegistrarUsuario() {
+        this.conversor = new JsonToObject();
+        this.controladorUsuario = new ControladorUsuario();
+    }
+    
+    
     
     @Override
-    public void ejecutar(String[] mensaje, ClientManager cliente) {
-        if(cliente.getCodigo().startsWith("11")){ //Si lo envia una vista
-            // Evento seguimiento-referencia a vista
-            cliente.setSeguimiento(); 
+    public void ejecutar(Peticion peticion, ClientManager cliente) {
             
-            System.out.println("si entro al if");
-            
-            String[] mensajes = {mensaje[0], cliente.getSeguimiento()+"", mensaje[1]};
-            System.out.println(convertidorJson.convertirObjetoString(mensajes));
-            cliente.enviarMensaje(ConstantesCodigosClientes.controladorUsuario, convertidorJson.convertirObjetoString(mensajes)); //Le envia al controlador el usuario para que lo agregue al modelo
-        } else{ //Si lo envia el controlador
-            //Envia evento seguimiento Resultado
-            
-            System.out.println(" si entro al else");
-            double seguimiento = Double.parseDouble(mensaje[1]);
-            String[] mensajes = {Eventos.registrarUsuario, mensaje[2]};
-            cliente.enviarMensaje(seguimiento, convertidorJson.convertirObjetoString(mensajes));
-        }
+            Usuario usuario = conversor.convertirUsuario(peticion.getInfo()); //Se convierte JSON a Objeto
+            Usuario usuarioRegistrado = controladorUsuario.registrarUsuario(usuario); //Se envia el usuario al controlador
+            Peticion peticionRespuesta = new Peticion(Eventos.registrarUsuario, 200, conversor.convertirObjetoString(usuarioRegistrado));
+            cliente.enviarMensaje(conversor.convertirObjetoString(peticion));
+//        }
     }
     
 }

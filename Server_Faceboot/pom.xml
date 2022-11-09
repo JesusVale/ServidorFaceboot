@@ -16,5 +16,10 @@
             <artifactId>dominio</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Controlador_Faceboot</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

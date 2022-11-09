@@ -17,15 +17,13 @@ import java.util.List;
  */
 public class Server implements Runnable{
 
-    private List<ClientManager> clientesConectados = new ArrayList();
+    private static List<ClientManager> clientesConectados = new ArrayList();
     private int puerto;
     private ServerSocket servidor;
 
-    public Server(int puerto) {
+    private Server(int puerto) {
         this.puerto = puerto;
     }
-    
-    
     
     @Override
     public void run() {
@@ -45,7 +43,7 @@ public class Server implements Runnable{
             
         }
     }
-    
+
     public void cerrarServerSocket(){
         try{
             if(servidor != null){
