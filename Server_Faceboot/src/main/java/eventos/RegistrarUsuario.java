@@ -26,8 +26,6 @@ public class RegistrarUsuario implements IEvento {
         this.controladorUsuario = new ControladorUsuario();
     }
     
-    
-    
     @Override
     public void ejecutar(Peticion peticion, ClientManager cliente) {
             
@@ -35,7 +33,6 @@ public class RegistrarUsuario implements IEvento {
             Usuario usuarioRegistrado = controladorUsuario.registrarUsuario(usuario); //Se envia el usuario al controlador
             Peticion peticionRespuesta = new Peticion(Eventos.registrarUsuario, 200, conversor.convertirObjetoString(usuarioRegistrado));
             cliente.enviarMensaje(conversor.convertirObjetoString(peticion));
-//        }
     }
     
 }
