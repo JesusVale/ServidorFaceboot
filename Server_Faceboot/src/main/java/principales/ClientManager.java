@@ -50,15 +50,18 @@ public class ClientManager implements Runnable{
         }
     }
     
-    public void enviarMensajeTodos(String mensaje){
-        for(ClientManager cliente: clientesConectados){
-            try{
-                cliente.out.write(mensaje);
-                cliente.out.newLine();
-                cliente.out.flush();
-            } catch(IOException io){
-                cerrarTodo(clientSocket, in, out);
+    public void notificarTodos(List<ClientManager> clientes, String mensaje){
+        for(ClientManager cliente: clientes){
+            if(!cliente.equals(this)){
+                try{
+                    cliente.out.write(mensaje);
+                    cliente.out.newLine();
+                    cliente.out.flush();
+                } catch(IOException io){
+                    cerrarTodo(clientSocket, in, out);
+                }
             }
+            
         }
     }
     

@@ -33,6 +33,7 @@ public class RegistrarUsuario implements IEvento {
             Usuario usuarioRegistrado = controladorUsuario.registrarUsuario(usuario); //Se envia el usuario al controlador
             Peticion peticionRespuesta = new Peticion(Eventos.registrarUsuario, 200, conversor.convertirObjetoString(usuarioRegistrado));
             cliente.enviarMensaje(conversor.convertirObjetoString(peticion));
+            
     }
     
 }

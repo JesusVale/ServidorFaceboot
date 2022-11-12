@@ -16,7 +16,9 @@ public class ManejadorEventos {
     private static Map<String, IEvento> eventos = Map.ofEntries(
             Map.entry(Eventos.registrarUsuario, new RegistrarUsuario()),
             Map.entry(Eventos.registrarPublicacion, new RegistrarPublicacion()),
-            Map.entry(Eventos.registrarComentario, new RegistrarComentario())
+            Map.entry(Eventos.registrarComentario, new RegistrarComentario()),
+            Map.entry(Eventos.suscribirseRegistrarPublicacion, new SuscribirseRegistrarPublicacion()),
+            Map.entry(Eventos.suscribirseRegistrarComentario, new SuscribirseRegistrarComentario())
     );
     
     public static IEvento get(String evento){

@@ -21,6 +21,7 @@ public class RegistrarPublicacion implements IEvento {
     public void ejecutar(Peticion peticion, ClientManager cliente) {
        String peticionStr = conversor.convertirObjetoString(new Peticion(Eventos.registrarPublicacion, 200, peticion.getInfo()));
        cliente.enviarMensaje(peticionStr);
+       cliente.notificarTodos(ManejadorListaEventos.getInstance().getPublicacionListeners(), peticionStr);
     }
     
     

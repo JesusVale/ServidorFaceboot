@@ -29,10 +29,9 @@ public class Server implements Runnable{
     public void run() {
         Socket sc = null;
         try{
-             servidor = new ServerSocket(puerto); //Se crea el servidor
+            servidor = new ServerSocket(puerto); //Se crea el servidor
             System.out.println("Servidor Iniciado");
-            while(true){ //De esta forma el servidor siempre va a estar escuchando peticiones
-                
+            while(true){ //De esta forma el servidor siempre va a estar escuchando peticiones     
                 sc = servidor.accept();
                 System.out.println("Cliente Conectado");
                 ClientManager cliente = new ClientManager(sc, clientesConectados);

@@ -20,6 +20,7 @@ public class RegistrarComentario implements IEvento {
     public void ejecutar(Peticion peticion, ClientManager cliente) {
        String peticionStr = conversor.convertirObjetoString(new Peticion(Eventos.registrarComentario, 200, peticion.getInfo()));
        cliente.enviarMensaje(peticionStr);
+       cliente.notificarTodos(ManejadorListaEventos.getInstance().getComentariosListeners(), peticionStr);
     }
     
 }
