@@ -28,12 +28,10 @@ public class RegistrarUsuario implements IEvento {
     
     @Override
     public void ejecutar(Peticion peticion, ClientManager cliente) {
-            
-            Usuario usuario = conversor.convertirUsuario(peticion.getInfo()); //Se convierte JSON a Objeto
-            Usuario usuarioRegistrado = controladorUsuario.registrarUsuario(usuario); //Se envia el usuario al controlador
-            Peticion peticionRespuesta = new Peticion(Eventos.registrarUsuario, 200, conversor.convertirObjetoString(usuarioRegistrado));
-            cliente.enviarMensaje(conversor.convertirObjetoString(peticion));
-            
+        Usuario usuario = conversor.convertirUsuario(peticion.getInfo()); //Se convierte JSON a Objeto
+        Usuario usuarioRegistrado = controladorUsuario.registrarUsuario(usuario); //Se envia el usuario al controlador
+        Peticion peticionRespuesta = new Peticion(Eventos.registrarUsuario, 200, conversor.convertirObjetoString(usuarioRegistrado));
+        cliente.enviarMensaje(conversor.convertirObjetoString(peticion));
     }
     
 }

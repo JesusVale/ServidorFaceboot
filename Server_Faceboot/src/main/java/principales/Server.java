@@ -20,7 +20,6 @@ public class Server implements Runnable{
     private static List<ClientManager> clientesConectados = new ArrayList();
     private int puerto;
     private ServerSocket servidor;
-
     private Server(int puerto) {
         this.puerto = puerto;
     }
@@ -39,7 +38,7 @@ public class Server implements Runnable{
                 new Thread(cliente).start();
             }
         } catch(IOException io){
-            
+            io.printStackTrace();
         }
     }
 
@@ -54,7 +53,7 @@ public class Server implements Runnable{
     }
     
     public static void main(String[] args){
-        Server server = new Server(5000);
+        Server server = new Server(6000);
         new Thread(server).start();
     }
 }

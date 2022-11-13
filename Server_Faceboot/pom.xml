@@ -13,12 +13,18 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>dominio</artifactId>
+            <artifactId>Controlador_Faceboot</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.mycompany</groupId>
+                    <artifactId>dominio</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>Controlador_Faceboot</artifactId>
+            <artifactId>dominio</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

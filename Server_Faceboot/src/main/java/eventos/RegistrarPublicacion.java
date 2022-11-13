@@ -4,8 +4,10 @@
  */
 package eventos;
 
+import controladores.ControladorPublicacion;
 import conversors.IJsonToObject;
 import conversors.JsonToObject;
+import entidades.Publicacion;
 import peticiones.Peticion;
 import principales.ClientManager;
 
@@ -15,13 +17,21 @@ import principales.ClientManager;
  */
 public class RegistrarPublicacion implements IEvento {
 
-    private IJsonToObject conversor = new JsonToObject();
+    private IJsonToObject conversor;
+    
+    private ControladorPublicacion controladorPublicacion;
+
+    public RegistrarPublicacion() {
+        this.conversor = new JsonToObject();
+        this.controladorPublicacion = new ControladorPublicacion();
+    }
     
     @Override
     public void ejecutar(Peticion peticion, ClientManager cliente) {
-       String peticionStr = conversor.convertirObjetoString(new Peticion(Eventos.registrarPublicacion, 200, peticion.getInfo()));
-       cliente.enviarMensaje(peticionStr);
-       cliente.notificarTodos(ManejadorListaEventos.getInstance().getPublicacionListeners(), peticionStr);
+        Publicacion Publicacion = conversor.convertirPublicacion(peticion.getInfo()); //Se convierte JSON a Objeto
+        Publicacion PublicacionRegistrado = controladorPublicacion.registrarPublicacion(Publicacion); //Se envia el Publicacion al controlador
+        Peticion peticionRespuesta = new Peticion(Eventos.registrarPublicacion, 400, conversor.convertirObjetoString(PublicacionRegistrado));
+        cliente.enviarMensaje(conversor.convertirObjetoString(peticion));
     }
     
     
