@@ -9,6 +9,7 @@ import conversors.IJsonToObject;
 import conversors.JsonToObject;
 import entidades.Usuario;
 import peticiones.Peticion;
+import peticiones.PeticionUsuario;
 import principales.ClientManager;
 
 /**
@@ -26,13 +27,17 @@ public class IniciarSesion implements IEvento{
     }
     
     @Override
-    public void ejecutar(Peticion peticion, ClientManager cliente) {
+    public void ejecutar(String peticion, ClientManager cliente) {
             
-            Usuario usuario = conversor.convertirUsuario(peticion.getInfo()); //Se convierte JSON a Objeto
-            Usuario usuarioRegistrado = controladorUsuario.IniciarSesion(usuario); //Se envia el usuario al controlador
-            Peticion peticionRespuesta = new Peticion(Eventos.Login, 200, conversor.convertirObjetoString(usuarioRegistrado));
-            cliente.enviarMensaje(conversor.convertirObjetoString(peticion));
-            
+            PeticionUsuario peticionUsuario = conversor.convertirPeticionUsuario(peticion); //Se convierte JSON a Objeto
+            Usuario usuarioRegistrado = controladorUsuario.IniciarSesion(peticionUsuario.getUsuario()); //Se envia el usuario al controlador
+            if(usuarioRegistrado != null){
+                Peticion peticionRespuesta = new PeticionUsuario(Eventos.Login, 200, usuarioRegistrado);
+                cliente.enviarMensaje(conversor.convertirObjetoString(peticionRespuesta));
+            } else{
+                PeticionUsuario peticionRespuesta = new PeticionUsuario(Eventos.Login, 404, "No se encontró al usuario");
+                cliente.enviarMensaje(conversor.convertirObjetoString(peticionRespuesta));
+            }
     }
     
 }

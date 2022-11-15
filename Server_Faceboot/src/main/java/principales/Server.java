@@ -20,8 +20,17 @@ public class Server implements Runnable{
     private static List<ClientManager> clientesConectados = new ArrayList();
     private int puerto;
     private ServerSocket servidor;
+    private static Server server;
+    
     private Server(int puerto) {
         this.puerto = puerto;
+    }
+    
+    public static Server getInstance(){
+        if(server == null){
+            server = new Server(6000);
+        }
+        return server;
     }
     
     @Override
@@ -41,6 +50,19 @@ public class Server implements Runnable{
             io.printStackTrace();
         }
     }
+    
+    public void notificarTodos(String mensaje){
+        for(ClientManager cliente: clientesConectados){
+                try{
+                    cliente.out.write(mensaje);
+                    cliente.out.newLine();
+                    cliente.out.flush();
+                } catch(IOException io){
+                    
+                    break;
+                }
+        }
+    }
 
     public void cerrarServerSocket(){
         try{
@@ -53,8 +75,7 @@ public class Server implements Runnable{
     }
     
     public static void main(String[] args){
-        Server server = new Server(6000);
-        new Thread(server).start();
+        new Thread(Server.getInstance()).start();
     }
 }
 

@@ -17,10 +17,9 @@ public class RegistrarComentario implements IEvento {
     private IJsonToObject conversor = new JsonToObject();
     
     @Override
-    public void ejecutar(Peticion peticion, ClientManager cliente) {
-       String peticionStr = conversor.convertirObjetoString(new Peticion(Eventos.registrarComentario, 200, peticion.getInfo()));
-       cliente.enviarMensaje(peticionStr);
-       cliente.notificarTodos(ManejadorListaEventos.getInstance().getComentariosListeners(), peticionStr);
+    public void ejecutar(String peticion, ClientManager cliente) {
+//       String peticionStr = conversor.convertirObjetoString(new Peticion(Eventos.registrarComentario, 200, peticion.getInfo()));
+//       cliente.enviarMensaje(peticionStr);
     }
     
 }

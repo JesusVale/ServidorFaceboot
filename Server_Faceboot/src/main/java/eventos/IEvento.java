@@ -5,7 +5,6 @@
  */
 package eventos;
 
-import peticiones.Peticion;
 import principales.ClientManager;
 
 /**
@@ -13,5 +12,5 @@ import principales.ClientManager;
  * @author jegav
  */
 public interface IEvento {
-    public void ejecutar(Peticion peticion, ClientManager cliente);
+    public void ejecutar(String peticion, ClientManager cliente);
 }

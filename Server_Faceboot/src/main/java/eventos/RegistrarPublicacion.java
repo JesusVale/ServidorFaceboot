@@ -9,6 +9,7 @@ import conversors.IJsonToObject;
 import conversors.JsonToObject;
 import entidades.Publicacion;
 import peticiones.Peticion;
+import peticiones.PeticionPublicacion;
 import principales.ClientManager;
 
 /**
@@ -27,12 +28,12 @@ public class RegistrarPublicacion implements IEvento {
     }
     
     @Override
-    public void ejecutar(Peticion peticion, ClientManager cliente) {
-        Publicacion Publicacion = conversor.convertirPublicacion(peticion.getInfo()); //Se convierte JSON a Objeto
-        Publicacion PublicacionRegistrado = controladorPublicacion.registrarPublicacion(Publicacion); //Se envia el Publicacion al controlador
-        Peticion peticionRespuesta = new Peticion(Eventos.registrarPublicacion, 400, conversor.convertirObjetoString(PublicacionRegistrado));
-        cliente.enviarMensaje(conversor.convertirObjetoString(peticion));
-        cliente.notificarTodos(ManejadorListaEventos.getInstance().getPublicacionListeners(), conversor.convertirObjetoString(peticion));
+    public void ejecutar(String peticion, ClientManager cliente) {
+        
+        PeticionPublicacion peticionPublicacion = conversor.convertirPeticionPublicacion(peticion);
+        controladorPublicacion.registrarPublicacion(peticionPublicacion.getPublicacion());
+        //Peticion peticionRespuesta = new Peticion(Eventos.registrarPublicacion, 400, conversor.convertirObjetoString(PublicacionRegistrado));
+        //cliente.enviarMensaje(conversor.convertirObjetoString(peticion));
     }
     
     

@@ -10,6 +10,7 @@ import conversors.IJsonToObject;
 import conversors.JsonToObject;
 import entidades.Usuario;
 import peticiones.Peticion;
+import peticiones.PeticionUsuario;
 import principales.ClientManager;
 
 /**
@@ -27,11 +28,20 @@ public class RegistrarUsuario implements IEvento {
     }
     
     @Override
-    public void ejecutar(Peticion peticion, ClientManager cliente) {
-        Usuario usuario = conversor.convertirUsuario(peticion.getInfo()); //Se convierte JSON a Objeto
-        Usuario usuarioRegistrado = controladorUsuario.registrarUsuario(usuario); //Se envia el usuario al controlador
-        Peticion peticionRespuesta = new Peticion(Eventos.registrarUsuario, 200, conversor.convertirObjetoString(usuarioRegistrado));
-        cliente.enviarMensaje(conversor.convertirObjetoString(peticion));
+    public void ejecutar(String peticion, ClientManager cliente) {
+        PeticionUsuario peticionUsuario = conversor.convertirPeticionUsuario(peticion);
+        Usuario usuarioRegistrado = controladorUsuario.registrarUsuario(peticionUsuario.getUsuario());
+        PeticionUsuario respuesta;
+        if(usuarioRegistrado != null){
+            respuesta = new PeticionUsuario(Eventos.registrarUsuario, 200, usuarioRegistrado);
+        } else{
+            respuesta = new PeticionUsuario(Eventos.registrarUsuario, 404, "Usuario no Encontrado");
+        }
+        cliente.enviarMensaje(conversor.convertirObjetoString(respuesta));
+//        Usuario usuario = conversor.convertirUsuario(peticion.getInfo()); //Se convierte JSON a Objeto
+//        Usuario usuarioRegistrado = controladorUsuario.registrarUsuario(usuario); //Se envia el usuario al controlador
+//        Peticion peticionRespuesta = new Peticion(Eventos.registrarUsuario, 200, conversor.convertirObjetoString(usuarioRegistrado));
+//        cliente.enviarMensaje(conversor.convertirObjetoString(peticion));
     }
     
 }

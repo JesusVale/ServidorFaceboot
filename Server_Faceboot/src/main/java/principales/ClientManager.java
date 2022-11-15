@@ -16,7 +16,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.List;
-import java.util.UUID;
 
 /**
  *
@@ -25,8 +24,8 @@ import java.util.UUID;
 public class ClientManager implements Runnable{
     private Socket clientSocket;
     private BufferedReader in;
-    private BufferedWriter out;
-    private List<ClientManager> clientesConectados;
+    public BufferedWriter out;
+    private static List<ClientManager> clientesConectados;
     
     public ClientManager(Socket clientSocket, List<ClientManager> clientesConectados) throws IOException {
         this.clientSocket = clientSocket;
@@ -42,7 +41,7 @@ public class ClientManager implements Runnable{
             try{
                 String mensajeCliente = in.readLine();
                 Peticion peticion = conversor.convertirPeticion(mensajeCliente); //El server recibe una petición de un cliente (Vista)
-                ManejadorEventos.get(peticion.getEvento()).ejecutar(peticion, this); //Envia la petición para que se maneje según el evento 
+                ManejadorEventos.get(peticion.getEvento()).ejecutar(mensajeCliente, this); //Envia la petición para que se maneje según el evento 
             } catch(IOException io){
                 cerrarTodo(clientSocket, in, out);
                 break;
@@ -50,18 +49,16 @@ public class ClientManager implements Runnable{
         }
     }
     
-    public void notificarTodos(List<ClientManager> clientes, String mensaje){
-        for(ClientManager cliente: clientes){
-            if(!cliente.equals(this)){
+    public void notificarTodos(String mensaje){
+        for(ClientManager cliente: clientesConectados){
                 try{
                     cliente.out.write(mensaje);
                     cliente.out.newLine();
                     cliente.out.flush();
                 } catch(IOException io){
                     cerrarTodo(clientSocket, in, out);
+                    break;
                 }
-            }
-            
         }
     }
     
@@ -74,7 +71,7 @@ public class ClientManager implements Runnable{
             cerrarTodo(clientSocket, in, out);
         }
     }
-
+    
     public void cerrarTodo(Socket socket, BufferedReader in, BufferedWriter out){
         try{
             socket.close();
