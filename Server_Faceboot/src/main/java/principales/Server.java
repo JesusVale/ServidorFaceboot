@@ -28,7 +28,7 @@ public class Server implements Runnable{
     
     public static Server getInstance(){
         if(server == null){
-            server = new Server(6000);
+            server = new Server(7000);
         }
         return server;
     }
@@ -52,13 +52,15 @@ public class Server implements Runnable{
     }
     
     public void notificarTodos(String mensaje){
+        System.out.println("Notificando a todos en el server");
+        System.out.println(clientesConectados.size());
         for(ClientManager cliente: clientesConectados){
                 try{
                     cliente.out.write(mensaje);
                     cliente.out.newLine();
                     cliente.out.flush();
                 } catch(IOException io){
-                    
+                    io.printStackTrace();
                     break;
                 }
         }
