@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package eventos;
 
@@ -9,35 +8,33 @@ import controladores.ControladorUsuario;
 import conversors.IJsonToObject;
 import conversors.JsonToObject;
 import entidades.Usuario;
-import peticiones.Peticion;
 import peticiones.PeticionUsuario;
 import principales.ClientManager;
 
 /**
  *
- * @author jegav
+ * @author tonyd
  */
-public class RegistrarUsuario implements IEvento {
-    
+public class EditarPerfil implements IEvento {
+
     private ControladorUsuario controladorUsuario;
     private IJsonToObject conversor;
 
-    public RegistrarUsuario() {
+    public EditarPerfil() {
         this.conversor = new JsonToObject();
         this.controladorUsuario = new ControladorUsuario();
     }
-    
+
     @Override
     public void ejecutar(String peticion, ClientManager cliente) {
         PeticionUsuario peticionUsuario = conversor.convertirPeticionUsuario(peticion);
-        Usuario usuarioRegistrado = controladorUsuario.registrarUsuario(peticionUsuario.getUsuario());
+        Usuario usuarioActualizado = controladorUsuario.editarPerfil(peticionUsuario.getUsuario());
         PeticionUsuario respuesta;
-        if(usuarioRegistrado != null){
-            respuesta = new PeticionUsuario(Eventos.registrarUsuario, 200, usuarioRegistrado);
-        } else{
-            respuesta = new PeticionUsuario(Eventos.registrarUsuario, 404, "Usuario no Encontrado");
+        if (usuarioActualizado != null) {
+            respuesta = new PeticionUsuario(Eventos.editarPerfil, 200, usuarioActualizado);
+        } else {
+            respuesta = new PeticionUsuario(Eventos.editarPerfil, 404, "Usuario no Encontrado");
         }
         cliente.enviarMensaje(conversor.convertirObjetoString(respuesta));
     }
-    
 }
