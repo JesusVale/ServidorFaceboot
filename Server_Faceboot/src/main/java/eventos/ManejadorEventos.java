@@ -17,7 +17,9 @@ public class ManejadorEventos {
             Map.entry(Eventos.Login, new IniciarSesion()),
             Map.entry(Eventos.registrarUsuario, new RegistrarUsuario()),
             Map.entry(Eventos.registrarPublicacion, new RegistrarPublicacion()),
-            Map.entry(Eventos.registrarComentario, new RegistrarComentario())
+            Map.entry(Eventos.registrarComentario, new RegistrarComentario()),
+            Map.entry(Eventos.consultarPublicaciones, new ConsultarPublicaciones()),
+            Map.entry(Eventos.consultarUsuarioPorId, new ConsultarUsuario())
     );
     
     public static IEvento get(String evento){
