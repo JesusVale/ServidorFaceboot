@@ -28,6 +28,8 @@ public class ConsultarPublicaciones implements IEvento {
     @Override
     public void ejecutar(String peticion, ClientManager cliente) {
         PeticionPublicaciones peticionRespuesta = controladorPublicacion.consultarPublicaciones();
+        System.out.println("eaeaeaeaeaeaeaeaeae");
+        System.out.println(conversor.convertirObjetoString(peticionRespuesta));
         cliente.enviarMensaje(conversor.convertirObjetoString(peticionRespuesta));
     }
 }

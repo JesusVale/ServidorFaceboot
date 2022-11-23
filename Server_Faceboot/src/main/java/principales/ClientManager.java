@@ -7,6 +7,7 @@ package principales;
 
 import conversors.IJsonToObject;
 import conversors.JsonToObject;
+import eventos.Eventos;
 import peticiones.Peticion;
 import eventos.ManejadorEventos;
 import java.io.BufferedReader;
