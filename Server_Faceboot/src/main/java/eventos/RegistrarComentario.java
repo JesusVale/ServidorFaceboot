@@ -4,9 +4,10 @@
  */
 package eventos;
 
+import controladores.ControladorComentario;
 import conversors.IJsonToObject;
 import conversors.JsonToObject;
-import peticiones.Peticion;
+import peticiones.PeticionComentario;
 import principales.ClientManager;
 
 /**
@@ -14,12 +15,19 @@ import principales.ClientManager;
  * @author jegav
  */
 public class RegistrarComentario implements IEvento {
-    private IJsonToObject conversor = new JsonToObject();
+    private IJsonToObject conversor;
+    
+    private ControladorComentario controladorComentario;
+
+    public RegistrarComentario() {
+        this.conversor = new JsonToObject();
+        this.controladorComentario = new ControladorComentario();
+    }
     
     @Override
     public void ejecutar(String peticion, ClientManager cliente) {
-//       String peticionStr = conversor.convertirObjetoString(new Peticion(Eventos.registrarComentario, 200, peticion.getInfo()));
-//       cliente.enviarMensaje(peticionStr);
+        
+        PeticionComentario peticionComentario = conversor.convertirPeticionComentario(peticion);
+        controladorComentario.registrarComentario(peticionComentario.getComentario());
     }
-    
 }

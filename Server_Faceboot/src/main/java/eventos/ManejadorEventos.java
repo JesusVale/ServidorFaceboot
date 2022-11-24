@@ -18,7 +18,8 @@ public class ManejadorEventos {
             Map.entry(Eventos.registrarUsuario, new RegistrarUsuario()),
             Map.entry(Eventos.registrarPublicacion, new RegistrarPublicacion()),
             Map.entry(Eventos.registrarComentario, new RegistrarComentario()),
-            Map.entry(Eventos.consultarPublicaciones, new ConsultarPublicaciones()),
+            Map.entry(Eventos.consultarPublicaciones, new ConsultarPublicaciones()),            
+            Map.entry(Eventos.consultarComentarios, new ConsultarComentarios()),
             Map.entry(Eventos.consultarUsuarioPorId, new ConsultarUsuario()),
             Map.entry(Eventos.eliminarUsuario, new EliminarUsuario()),
             Map.entry(Eventos.eliminarPublicacion, new EliminarPublicacion())

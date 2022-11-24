@@ -28,7 +28,7 @@ public class Server implements Runnable{
     
     public static Server getInstance(){
         if(server == null){
-            server = new Server(7000);
+            server = new Server(9000);
         }
         return server;
     }

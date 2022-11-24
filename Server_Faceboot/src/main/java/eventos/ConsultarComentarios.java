@@ -4,31 +4,29 @@
  */
 package eventos;
 
-import controladores.ControladorPublicacion;
+import controladores.ControladorComentario;
 import conversors.IJsonToObject;
 import conversors.JsonToObject;
-import peticiones.PeticionPublicaciones;
+import peticiones.PeticionComentarios;
 import principales.ClientManager;
 
 /**
  *
- * @author jegav
+ * @author tonyd
  */
-public class ConsultarPublicaciones implements IEvento {
-
+public class ConsultarComentarios implements IEvento{
     private IJsonToObject conversor;
     
-    private ControladorPublicacion controladorPublicacion;
+    private ControladorComentario controladorComentario;
 
-    public ConsultarPublicaciones() {
+    public ConsultarComentarios() {
         this.conversor = new JsonToObject();
-        this.controladorPublicacion = new ControladorPublicacion();
+        this.controladorComentario = new ControladorComentario();
     }
     
     @Override
     public void ejecutar(String peticion, ClientManager cliente) {
-        PeticionPublicaciones peticionRespuesta = controladorPublicacion.consultarPublicaciones();
-        System.out.println(conversor.convertirObjetoString(peticionRespuesta));
+        PeticionComentarios peticionRespuesta = controladorComentario.consultarComentarios();
         cliente.enviarMensaje(conversor.convertirObjetoString(peticionRespuesta));
     }
 }
