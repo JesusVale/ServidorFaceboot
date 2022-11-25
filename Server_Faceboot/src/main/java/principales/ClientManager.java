@@ -26,6 +26,7 @@ public class ClientManager implements Runnable{
     private Socket clientSocket;
     private BufferedReader in;
     public BufferedWriter out;
+    private Integer id;
     private static List<ClientManager> clientesConectados;
     
     public ClientManager(Socket clientSocket, List<ClientManager> clientesConectados) throws IOException {
@@ -82,4 +83,13 @@ public class ClientManager implements Runnable{
             io.printStackTrace();
         }
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
 }

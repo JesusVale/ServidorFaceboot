@@ -51,10 +51,12 @@ public class Server implements Runnable{
         }
     }
     
-    public void notificarTodos(String mensaje){
+    public void notificarTodos(Integer id, String mensaje){
         System.out.println("Notificando a todos en el server");
-        System.out.println(clientesConectados.size());
         for(ClientManager cliente: clientesConectados){
+            System.out.println("Id de Cliente: "+cliente.getId());
+            System.out.println("Id que se manda: "+id);
+            if(cliente.getId() != id){
                 try{
                     cliente.out.write(mensaje);
                     cliente.out.newLine();
@@ -63,6 +65,7 @@ public class Server implements Runnable{
                     io.printStackTrace();
                     break;
                 }
+            }    
         }
     }
 

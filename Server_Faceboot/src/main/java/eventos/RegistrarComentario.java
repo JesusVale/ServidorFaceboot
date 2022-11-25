@@ -26,8 +26,8 @@ public class RegistrarComentario implements IEvento {
     
     @Override
     public void ejecutar(String peticion, ClientManager cliente) {
-        
         PeticionComentario peticionComentario = conversor.convertirPeticionComentario(peticion);
-        controladorComentario.registrarComentario(peticionComentario.getComentario());
+        PeticionComentario peticionComentarioRegistrado = controladorComentario.registrarComentario(peticionComentario.getComentario());
+        cliente.enviarMensaje(conversor.convertirObjetoString(peticionComentarioRegistrado));
     }
 }

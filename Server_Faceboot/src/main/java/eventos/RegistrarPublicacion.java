@@ -31,9 +31,8 @@ public class RegistrarPublicacion implements IEvento {
     public void ejecutar(String peticion, ClientManager cliente) {
         
         PeticionPublicacion peticionPublicacion = conversor.convertirPeticionPublicacion(peticion);
-        controladorPublicacion.registrarPublicacion(peticionPublicacion.getPublicacion());
-        //Peticion peticionRespuesta = new Peticion(Eventos.registrarPublicacion, 400, conversor.convertirObjetoString(PublicacionRegistrado));
-        //cliente.enviarMensaje(conversor.convertirObjetoString(peticion));
+        PeticionPublicacion peticionPublicacionRegistrada = controladorPublicacion.registrarPublicacion(peticionPublicacion.getPublicacion());
+        cliente.enviarMensaje(conversor.convertirObjetoString(peticionPublicacionRegistrada));
     }
     
     
