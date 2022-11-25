@@ -7,6 +7,7 @@ package eventos;
 import controladores.ControladorComentario;
 import conversors.IJsonToObject;
 import conversors.JsonToObject;
+import peticiones.PeticionId;
 import peticiones.PeticionComentarios;
 import principales.ClientManager;
 
@@ -26,7 +27,8 @@ public class ConsultarComentarios implements IEvento{
     
     @Override
     public void ejecutar(String peticion, ClientManager cliente) {
-        PeticionComentarios peticionRespuesta = controladorComentario.consultarComentarios();
+        PeticionId peticionId = conversor.convertirPeticionId(peticion);
+        PeticionComentarios peticionRespuesta = controladorComentario.consultarComentarios(peticionId.getId());
         cliente.enviarMensaje(conversor.convertirObjetoString(peticionRespuesta));
     }
 }
