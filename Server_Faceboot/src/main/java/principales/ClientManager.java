@@ -42,8 +42,7 @@ public class ClientManager implements Runnable{
         while(clientSocket.isConnected()){
             try{
                 String mensajeCliente = in.readLine();
-                Peticion peticion = conversor.convertirPeticion(mensajeCliente); //El server recibe una petición de un cliente (Vista)
-                ManejadorEventos.get(peticion.getEvento()).ejecutar(mensajeCliente, this); //Envia la petición para que se maneje según el evento 
+                ManejadorEventos.ejecutarEvento(mensajeCliente, this);
             } catch(IOException io){
                 cerrarTodo(clientSocket, in, out);
                 break;

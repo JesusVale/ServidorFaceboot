@@ -52,11 +52,12 @@ public class Server implements Runnable{
     }
     
     public void notificarTodos(Integer id, String mensaje){
-        System.out.println("Notificando a todos en el server");
+        //System.out.println("Notificando a todos en el server");
         for(ClientManager cliente: clientesConectados){
             System.out.println("Id de Cliente: "+cliente.getId());
             System.out.println("Id que se manda: "+id);
             if(cliente.getId() != id){
+                System.out.println("Eviando Publicacion: "+mensaje);
                 try{
                     cliente.out.write(mensaje);
                     cliente.out.newLine();

@@ -4,8 +4,14 @@
  */
 package eventos;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import principales.ClientManager;
 
 /**
  *
@@ -30,4 +36,14 @@ public class ManejadorEventos {
         return eventos.get(evento);
     }
     
+    public static void ejecutarEvento(String peticion, ClientManager cliente){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            JsonNode peticionJson = mapper.readTree(peticion);
+            String evento = peticionJson.get("evento").asText();
+            eventos.get(evento).ejecutar(peticion, cliente);
+        } catch (JsonProcessingException ex) {
+            Logger.getLogger(ManejadorEventos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
