@@ -32,7 +32,8 @@ public class ManejadorEventos {
             Map.entry(Eventos.eliminarPublicacion, new EliminarPublicacion()),
             Map.entry(Eventos.iniciarSesionFacebook, new InicioSesionFacebook()),
             Map.entry(Eventos.registrarHashtags, new RegistrarHashtags()),
-            Map.entry(Eventos.registrarNotificacion, new RegistrarNotificacion())
+            Map.entry(Eventos.registrarNotificacion, new RegistrarNotificacion()),
+            Map.entry(Eventos.consultarUsuarioPorNombre, new ConsultarUsuarioPorNombre())
     );
     
     public static IEvento get(String evento){
