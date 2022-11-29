@@ -28,6 +28,7 @@ public class ManejadorEventos {
             Map.entry(Eventos.consultarComentarios, new ConsultarComentarios()),
             Map.entry(Eventos.consultarUsuarioPorId, new ConsultarUsuario()),
             Map.entry(Eventos.eliminarUsuario, new EliminarUsuario()),
+            Map.entry(Eventos.editarPerfil, new EditarPerfil()),
             Map.entry(Eventos.eliminarPublicacion, new EliminarPublicacion()),
             Map.entry(Eventos.iniciarSesionFacebook, new InicioSesionFacebook())
     );
