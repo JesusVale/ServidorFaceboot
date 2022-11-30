@@ -19,7 +19,7 @@ public class RegistrarHashtags implements IEvento {
 
     private ControladorHashtag controladorHashtag;
     private IJsonToObject conversor;
-
+    
     @Override
     public void ejecutar(String peticion, ClientManager cliente) {
         PeticionHashtags peticionHashtags = conversor.convertirPeticionHashtags(peticion);
