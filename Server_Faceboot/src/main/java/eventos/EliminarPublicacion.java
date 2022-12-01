@@ -27,13 +27,7 @@ public class EliminarPublicacion implements IEvento{
     @Override
     public void ejecutar(String peticion, ClientManager cliente) {
         PeticionPublicacion peticionPublicacion = conversor.convertirPeticionPublicacion(peticion);
-        Publicacion publicacionEliminada = controladorPublicacion.eliminarPublicacion(peticionPublicacion.getPublicacion());
-        PeticionPublicacion respuesta;
-        if (publicacionEliminada != null) {
-            respuesta = new PeticionPublicacion(Eventos.eliminarPublicacion, 200, publicacionEliminada);
-        } else {
-            respuesta = new PeticionPublicacion(Eventos.eliminarPublicacion, 404, "Publicacion no Encontrada");
-        }
+        PeticionPublicacion respuesta = controladorPublicacion.eliminarPublicacion(peticionPublicacion.getPublicacion());
         cliente.enviarMensaje(conversor.convertirObjetoString(respuesta));
     }
 }

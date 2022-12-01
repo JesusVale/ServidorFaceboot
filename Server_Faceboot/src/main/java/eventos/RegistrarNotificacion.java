@@ -28,13 +28,7 @@ public class RegistrarNotificacion implements IEvento{
     @Override
     public void ejecutar(String peticion, ClientManager cliente) {
         PeticionNotificacion peticionNotificacion = conversor.convertirNotificacion(peticion);
-        Notificacion notificacionRegistrada = controladorNotificacion.registrarNotificacion(peticionNotificacion.getNotificacion());
-        PeticionNotificacion respuesta;
-        if(notificacionRegistrada != null){
-            respuesta = new PeticionNotificacion(Eventos.registrarNotificacion, 200, notificacionRegistrada);
-        } else{
-            respuesta = new PeticionNotificacion(Eventos.registrarNotificacion, 404, "Notificacion no encontrada");
-        }
+        PeticionNotificacion respuesta = controladorNotificacion.registrarNotificacion(peticionNotificacion.getNotificacion());
         cliente.enviarMensaje(conversor.convertirObjetoString(respuesta));
     }
     
