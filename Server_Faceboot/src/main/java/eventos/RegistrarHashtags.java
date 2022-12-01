@@ -23,14 +23,8 @@ public class RegistrarHashtags implements IEvento {
     @Override
     public void ejecutar(String peticion, ClientManager cliente) {
         PeticionHashtags peticionHashtags = conversor.convertirPeticionHashtags(peticion);
-        List<Hashtag> hashtagsRegistrado = controladorHashtag.registrarHashtags(peticionHashtags.getHashtags());
-        PeticionHashtags respuesta;
-        if(hashtagsRegistrado != null){
-            respuesta = new PeticionHashtags(Eventos.registrarHashtags, 200, hashtagsRegistrado);
-        } else{
-            respuesta = new PeticionHashtags(Eventos.registrarHashtags, 404, "hashtags no encontrados");
-        }
-        cliente.enviarMensaje(conversor.convertirObjetoString(respuesta));        
+        PeticionHashtags respuesta = controladorHashtag.registrarHashtags(peticionHashtags.getHashtags());
+        cliente.enviarMensaje(conversor.convertirObjetoString(respuesta));
     }
 
 }
