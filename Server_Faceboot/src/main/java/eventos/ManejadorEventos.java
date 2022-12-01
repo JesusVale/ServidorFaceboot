@@ -35,7 +35,8 @@ public class ManejadorEventos {
             Map.entry(Eventos.registrarNotificacion, new RegistrarNotificacion()),
             Map.entry(Eventos.consultarUsuarioPorNombre, new ConsultarUsuarioPorNombre()),
             Map.entry(Eventos.consultarHashtagPorTema, new ConsultarHashtagPorTema()),
-            Map.entry(Eventos.consultarPublicacionesPorHashtag, new ConsultarPublicacionesPorHashtag())
+            Map.entry(Eventos.consultarPublicacionesPorHashtag, new ConsultarPublicacionesPorHashtag()),
+            Map.entry(Eventos.consultarNotificacionesPorRemitente, new ConsultarNotificacionesPorRemitente())
     );
     
     public static IEvento get(String evento){

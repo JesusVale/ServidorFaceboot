@@ -30,13 +30,7 @@ public class RegistrarUsuario implements IEvento {
     @Override
     public void ejecutar(String peticion, ClientManager cliente) {
         PeticionUsuario peticionUsuario = conversor.convertirPeticionUsuario(peticion);
-        Usuario usuarioRegistrado = controladorUsuario.registrarUsuario(peticionUsuario.getUsuario());
-        PeticionUsuario respuesta;
-        if(usuarioRegistrado != null){
-            respuesta = new PeticionUsuario(Eventos.registrarUsuario, 200, usuarioRegistrado);
-        } else{
-            respuesta = new PeticionUsuario(Eventos.registrarUsuario, 404, "Usuario no Encontrado");
-        }
+        PeticionUsuario respuesta = controladorUsuario.registrarUsuario(peticionUsuario.getUsuario());
         cliente.enviarMensaje(conversor.convertirObjetoString(respuesta));
     }
     
