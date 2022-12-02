@@ -7,8 +7,6 @@ package principales;
 
 import conversors.IJsonToObject;
 import conversors.JsonToObject;
-import eventos.Eventos;
-import peticiones.Peticion;
 import eventos.ManejadorEventos;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -44,7 +42,8 @@ public class ClientManager implements Runnable{
                 String mensajeCliente = in.readLine();
                 ManejadorEventos.ejecutarEvento(mensajeCliente, this);
             } catch(IOException io){
-                cerrarTodo(clientSocket, in, out);
+                eliminarCliente();
+                cerrarTodo();
                 break;
             }
         }
@@ -57,7 +56,7 @@ public class ClientManager implements Runnable{
                     cliente.out.newLine();
                     cliente.out.flush();
                 } catch(IOException io){
-                    cerrarTodo(clientSocket, in, out);
+                    cerrarTodo();
                     break;
                 }
         }
@@ -69,13 +68,17 @@ public class ClientManager implements Runnable{
             out.newLine();
             out.flush();
         } catch(IOException io){
-            cerrarTodo(clientSocket, in, out);
+            cerrarTodo();
         }
     }
     
-    public void cerrarTodo(Socket socket, BufferedReader in, BufferedWriter out){
+    public void eliminarCliente(){
+        clientesConectados.remove(this);
+    }
+    
+    public void cerrarTodo(){
         try{
-            socket.close();
+            clientSocket.close();
             in.close();
             out.close();
         } catch(IOException io){
